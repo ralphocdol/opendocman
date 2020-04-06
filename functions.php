@@ -877,10 +877,13 @@ function redirect_visitor($url = '')
     }
 }
 
+
+
 function base_url(){
+    preg_match('/^(.*)\/[^\/]+$/', isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : "", $m);
     return sprintf(
-        "%s://%s",
+        "%s://%s%s",
         isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
-        $_SERVER['SERVER_NAME']
+        $_SERVER['SERVER_NAME'], isset($m[1]) ? $m[1] : ""
     );
 }
